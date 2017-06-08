@@ -40,10 +40,11 @@ var app = {
                     if(result.cancelled !== true){
                         alert("Sending data:" + result.text );
                         var xmlHttp = new XMLHttpRequest();
-                        xmlHttp.open( "GET", "http://www.spielberg-camping.at/admin/arrival.php?id="+result.text, false ); // false for synchronous request
+                        xmlHttp.open( "GET", "http://www.spielberg-camping.at/admin/scan.php?id="+result.text, false ); // false for synchronous request
                         xmlHttp.send( null );
-                        console.log("http://www.spielberg-camping.at/admin/arrival.php?id="+result.text);
-                        console.log(xmlHttp.responseText);
+                        console.log("http://www.spielberg-camping.at/admin/scan.php?id="+result.text);
+                      /*  console.log(xmlHttp.responseText);*/
+                        document.getElementById("response").innerHTML=xmlHttp.responseText;
                     }
                   document.getElementById("scan").disabled=false;
                     document.getElementById("scan").innerHTML="SCAN";
