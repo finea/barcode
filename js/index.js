@@ -28,7 +28,8 @@ var app = {
    
     onDeviceReady: function () {
         app.receivedEvent('deviceready');
-        document.getElementById("scan").addEventListener("click", app.scan);
+        //document.getElementById("scan").addEventListener("click", app.scan);
+        app.scan();
 
     },
     scan: function(){
@@ -45,9 +46,10 @@ var app = {
                         console.log("http://www.spielberg-camping.at/admin/scan.php?id="+result.text);
                       /*  console.log(xmlHttp.responseText);*/
                         document.getElementById("response").innerHTML=xmlHttp.responseText;
+                         app.scan();
                     }
                   document.getElementById("scan").disabled=false;
-                    document.getElementById("scan").innerHTML="SCAN";
+                  document.getElementById("scan").innerHTML="SCAN";
                 },
                 function (error) {
                     alert("Scanning failed: " + error);
