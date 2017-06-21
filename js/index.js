@@ -17,6 +17,7 @@
  * under the License.
  */
 var app = {
+    url: "http://www.spielberg-camping.at/admin/scan.php?id=",
     // Application Constructor
     initialize: function () {
         this.bindEvents();
@@ -28,9 +29,14 @@ var app = {
    
     onDeviceReady: function () {
         app.receivedEvent('deviceready');
-        //document.getElementById("scan").addEventListener("click", app.scan);
-        app.scan();
+        document.getElementById("scan").addEventListener("click", app.scan);
+        document.getElementById("url").value=app.url;
+        document.getElementById("url").addEventListener("change", app.changeURL);
+        //app.scan();
 
+    },
+    changeURL: function(){
+       app.url = document.getElementById("url").value;
     },
     scan: function(){
         console.log("starting scan");
@@ -39,11 +45,11 @@ var app = {
         cordova.plugins.barcodeScanner.scan(
                 function (result) {
                     if(result.cancelled !== true){
-                        alert("Sending data:" + result.text );
+                        //alert("Sending data:" + result.text );
                         var xmlHttp = new XMLHttpRequest();
-                        xmlHttp.open( "GET", "http://www.spielberg-camping.at/admin/scan.php?id="+result.text, false ); // false for synchronous request
+                        xmlHttp.open( "GET", app.url+result.text, false ); // false for synchronous request
                         xmlHttp.send( null );
-                        console.log("http://www.spielberg-camping.at/admin/scan.php?id="+result.text);
+                        console.log(app.url+result.text);
                       /*  console.log(xmlHttp.responseText);*/
                         document.getElementById("response").innerHTML=xmlHttp.responseText;
                          app.scan();
@@ -61,12 +67,13 @@ var app = {
                     showFlipCameraButton: true, 
                     showTorchButton: true, 
                     torchOn: true, 
-                    prompt: "Place a barcode inside the scan area", 
+                    prompt: app.url, 
                     resultDisplayDuration: 500, 
                     formats: "CODE_128", 
                     orientation: "portrait", 
                     disableAnimations: true, 
-                    disableSuccessBeep: false 
+                    disableSuccessBeep: false,
+                    resultDisplayDuration: 0
                 }
         );
     },

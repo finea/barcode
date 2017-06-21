@@ -64,6 +64,12 @@ body {
     outline: none;
         
 }
+
+#url {
+    width:80%;
+    margin-bottom: 3em;
+}
+
 #response {
     padding-top:1em;
 }
